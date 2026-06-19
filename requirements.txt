@@ -1,0 +1,39 @@
+# ==========================================
+# 1. Core Computer Vision & Deep Learning
+# ==========================================
+torch==2.2.2                 # Deep learning backend (Base requirement; see Windows notes for CUDA)
+torchvision==0.17.2          # Image transformations and model architectures
+opencv-python==4.9.0.80      # Video stream processing and image matrix manipulation
+ultralytics==8.1.47          # Wrapper for YOLOv8/YOLOv10 inference and ByteTrack integration
+
+# ==========================================
+# 2. Multi-Modal Feature Extraction (OCR & Re-ID)
+# ==========================================
+paddlepaddle==2.6.1          # Backend engine required for PaddleOCR
+paddleocr==2.7.3             # License plate optical character recognition
+fastreid==1.4.0              # Deep appearance embedding extraction (OSNet)
+
+# ==========================================
+# 3. Data Manipulation, Math & Geometry
+# ==========================================
+numpy==1.26.4                # Core matrix operations for frame data
+scipy==1.13.0                # Used for linear_sum_assignment (Hungarian Algorithm) in fusion logic
+pandas==2.2.2                # Dataframe operations for analytics and aggregation
+shapely==2.0.4               # Polygon intersection (IoU) mapping for parking slot occupancy
+
+# ==========================================
+# 4. Database & Persistence
+# ==========================================
+SQLAlchemy==2.0.29           # Object Relational Mapper for database interactions
+# Note: SQLite engine is built into Python standard library (sqlite3), no pip install required.
+
+# ==========================================
+# 5. Dashboard & UI Presentation
+# ==========================================
+streamlit==1.34.0            # Real-time web application framework
+plotly==5.21.0               # Interactive analytical charts and temporal graphing
+
+# ==========================================
+# 6. Configuration & Utilities
+# ==========================================
+PyYAML==6.0.1                # Parsing config/params.yaml
