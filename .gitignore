@@ -1,0 +1,51 @@
+# Python
+
+**pycache**/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environments
+
+.venv/
+venv/
+env/
+
+# Database
+
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+
+.vscode/
+.idea/
+
+# OS
+
+.DS_Store
+Thumbs.db
+
+# Logs
+
+*.log
+
+# Model Weights
+
+weights/*.pt
+weights/*.pth
+weights/*.onnx
+
+# Data
+
+data/raw/
+data/processed/
+
+# Testing
+
+.pytest_cache/
+
+# Environment Variables
+
+.env
