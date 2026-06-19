@@ -1,0 +1,90 @@
+project:
+  name: "Smart Parking ReID System"
+  version: "0.1.0"
+  
+  system:
+  environment: "development"
+  debug: true
+  processing_threads: 3
+  frame_queue_size: 128
+
+database:
+  connection_string: "sqlite:///parking_system.db"
+  pool_size: 5
+  max_overflow: 10
+  timeout: 30
+
+logging:
+  level: "INFO"
+  file_path: "logs/system.log"
+  rotation: "10 MB"
+  retention: "7 days"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+cameras:
+  - id: "cam_01_main_lot"
+    rtsp_url: "rtsp://admin:admin@192.168.1.100/stream1"
+    skip_frames: 3
+    resolution: [1920, 1080]
+    fps: 30
+    location_tag: "Zone A"
+
+perception:
+  vehicle_detection:
+    model_path: "weights/yolov10m.pt"
+    device: "cpu"
+    confidence_threshold: 0.55
+    nms_iou_threshold: 0.45
+    target_classes: [2, 3, 5, 7]  # COCO: car, motorcycle, bus, truck
+
+  tracking:
+    algorithm: "bytetrack"
+    track_high_thresh: 0.50
+    track_low_thresh: 0.10
+    new_track_thresh: 0.60
+    track_buffer: 60
+    match_thresh: 0.80
+
+extractors:
+  plate_detection:
+    model_path: "weights/yolov8n_plate.pt"
+    device: "cpu"
+    confidence_threshold: 0.60
+
+  ocr:
+    engine: "paddleocr"
+    language: "en"
+    use_gpu: false
+    confidence_threshold: 0.75
+    temporal_buffer_size: 10
+
+  reid:
+    model_path: "weights/osnet_x1_0.pth"
+    device: "cpu"
+    input_size: [256, 128]
+    distance_metric: "cosine"
+
+fusion_engine:
+  weights:
+    plate_text: 0.50
+    reid_embedding: 0.30
+    color: 0.10
+    vehicle_type: 0.10
+  match_threshold: 0.65
+  max_time_gap_seconds: 600
+
+spatial:
+  occupancy:
+    parked_iou_threshold: 0.60
+    stationary_time_sec: 5
+    exit_time_sec: 3
+    centroid_movement_tolerance_pixels: 20
+
+alerts:
+  thresholds:
+    overstay_minutes: 120
+    suspicious_reentry_minutes: 15
+  triggers:
+    notify_on_unauthorized: true
+    notify_on_overstay: true
+    notify_on_full_capacity: true
