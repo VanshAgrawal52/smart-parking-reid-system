@@ -9,9 +9,20 @@ and occupancy logic based on vehicle overlaps.
 import pytest
 from datetime import datetime
 from shapely.geometry import Polygon
+from dataclasses import dataclass
+from typing import List
+from datetime import datetime
+
+
+@dataclass
+class Detection:
+    track_id: int
+    bbox: List[float]
+    confidence: float
+    class_id: int
+    timestamp: datetime
 
 from core.spatial import SpatialEngine, ParkingSlot, OccupancyResult
-from core.perception import Detection
 
 
 @pytest.fixture
